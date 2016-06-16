@@ -4,6 +4,8 @@ The team is always working to improve the overall performance of Gradle, and thi
 
 In other news, the [Gradle daemon](userguide/gradle_daemon.html) has become self-aware. Not in the AI sense, sadly, but you will find the daemon to be much more **robust and resource-efficient** now because it monitors its memory usage. It's much less likely that you will need to manually kill daemons.
 
+Talking about the daemon process, a security vulnerability has been patched concerning the daemon-client communication. For the details read the corresponding section below.
+
 There are several other quality-of-life improvements for various users, including **IntelliJ IDEA support for Play framework projects**, and a fix that makes authoring plugins easier. In addition, we mentioned in our 2.13 release notes that **composite build support** is coming in Buildship 2.0. This amazing new feature will require Gradle 2.14 as a minimum version.
 
 Finally, it's time to start preparing for the departure of an old friend. Gradle 2.14 sees the **deprecation of Java 6**. It has been with us a long time now, reaching its official End of Life in 2013. You will still be able to use Java 6 with Gradle 2.14 and future versions, but you won't be able to run Gradle 3.0 on it.
@@ -42,6 +44,11 @@ The monitoring is enabled by default, but you can disable it by configuring this
 If you want to disable daemon monitoring for all projects, add this setting to _«USER_HOME»/.gradle/gradle.properties_. Otherwise, just add it to a _gradle.properties_ file in the root of a project.
 
 In addition to this self-monitoring feature, Gradle now attempts to limit its overall consumption of system resources by shutting down daemons that are no longer in use. Gradle previously stopped daemons after a fixed period of inactivity. In 2.14, idle daemons will expire more quickly when memory pressure is high, thus freeing up system resources faster than before.
+
+
+## Fixed security vulnerability when using the Daemon
+
+Gradle uses local network connections to communicate with the daemon process. In previous versions it was possible to detect on which local port the daemon process is listening to requests. Moreover, the daemon process did not require authentication. As a result, an attacker could discover the daemon and execute an arbitrary script with it using the privileges of the user who created the daemon. This vulnerability has been patched in this release.
 
 ### Deprecation of Java 6 support 
 
