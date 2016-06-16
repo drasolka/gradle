@@ -2,9 +2,7 @@ The Gradle team is pleased to announce Gradle 2.14.
 
 The team is always working to improve the overall performance of Gradle, and this release does not disappoint. Gradle's configuration time has dropped considerably through the application of some careful optimizations. The Gradle build itself has seen a **50% reduction in configuration time**. You'll see the biggest impact on multi-project builds, but everyone will benefit to some degree. This is reason enough to upgrade.
 
-In other news, the [Gradle daemon](userguide/gradle_daemon.html) has become self-aware. Not in the AI sense, sadly, but you will find the daemon to be much more **robust and resource-efficient** now because it monitors its memory usage. It's much less likely that you will need to manually kill daemons.
-
-Talking about the daemon process, a security vulnerability has been patched concerning the daemon-client communication. For the details read the corresponding section below.
+In other news, the [Gradle daemon](userguide/gradle_daemon.html) has become self-aware. Not in the AI sense, sadly, but you will find the daemon to be much more **robust and resource-efficient** now because it monitors its memory usage. It's much less likely that you will need to manually kill daemons. Additionally, an **important security vulnerability** has been fixed concerning daemon communication and local privilege escalation. For more information [read the corresponding section below](#local-privilege-escalation-when-using-the-daemon). We strongly recommend that users upgrade to 2.14.
 
 There are several other quality-of-life improvements for various users, including **IntelliJ IDEA support for Play framework projects**, and a fix that makes authoring plugins easier. In addition, we mentioned in our 2.13 release notes that **composite build support** is coming in Buildship 2.0. This amazing new feature will require Gradle 2.14 as a minimum version.
 
@@ -45,10 +43,9 @@ If you want to disable daemon monitoring for all projects, add this setting to _
 
 In addition to this self-monitoring feature, Gradle now attempts to limit its overall consumption of system resources by shutting down daemons that are no longer in use. Gradle previously stopped daemons after a fixed period of inactivity. In 2.14, idle daemons will expire more quickly when memory pressure is high, thus freeing up system resources faster than before.
 
+### Local privilege escalation when using the Daemon
 
-## Fixed security vulnerability when using the Daemon
-
-Gradle uses local network connections to communicate with the daemon process. In previous versions it was possible to detect on which local port the daemon process is listening to requests. Moreover, the daemon process did not require authentication. As a result, an attacker could discover the daemon and execute an arbitrary script with it using the privileges of the user who created the daemon. This vulnerability has been patched in this release.
+Gradle uses local network connections to communicate with the Gradle Daemon process. In previous versions, it was possible to detect on which local port a daemon process was listening to requests. Since the daemon process did not require authentication, an attacker could execute arbitrary scripts using the privileges of the user who originally created the daemon. This vulnerability has been fixed in this release.
 
 ### Deprecation of Java 6 support 
 
