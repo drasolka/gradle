@@ -45,7 +45,7 @@ In addition to this self-monitoring feature, Gradle now attempts to limit its ov
 
 ### Local privilege escalation when using the Daemon
 
-Gradle uses local network connections to communicate with the Gradle Daemon process. In previous versions, it was possible to detect on which local port a daemon process was listening to requests. Since the daemon process did not require authentication, an attacker could execute arbitrary scripts using the privileges of the user who originally created the daemon. This vulnerability has been fixed in this release.
+Gradle uses local network connections to communicate with the Gradle Daemon process. In previous versions, it was possible to detect on which local port a daemon process was listening to requests. Since the daemon process did not require authentication, an attacker on the same machine could execute arbitrary scripts using the privileges of the user who originally created the daemon. This vulnerability has been fixed in this release.
 
 ### Deprecation of Java 6 support 
 
